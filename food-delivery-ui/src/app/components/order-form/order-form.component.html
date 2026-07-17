@@ -1,0 +1,112 @@
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">{{ orderId ? 'Update Order' : 'Create Order' }}</h5>
+    </div>
+    <div class="card-body">
+        <!-- Loading Spinner -->
+        <div *ngIf="loading" class="text-center mb-3">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Processing...</p>
+        </div>
+
+        <!-- Error Alert -->
+        <div *ngIf="error && !loading" class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ error }}
+            <button type="button" class="btn-close" (click)="error = null"></button>
+        </div>
+
+        <!-- Success Alert -->
+        <div *ngIf="success && !loading" class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ success }}
+            <button type="button" class="btn-close" (click)="success = null"></button>
+        </div>
+
+        <!-- Form -->
+        <form [formGroup]="form" (ngSubmit)="submit()" *ngIf="!loading">
+            <div class="mb-3">
+                <label for="customerName" class="form-label">Customer Name *</label>
+                <input type="text" class="form-control" id="customerName" formControlName="customerName"
+                    [class.is-invalid]="form.get('customerName')?.invalid && form.get('customerName')?.touched"
+                    placeholder="Enter customer name" />
+                <div class="invalid-feedback"
+                    *ngIf="form.get('customerName')?.invalid && form.get('customerName')?.touched">
+                    <span *ngIf="form.get('customerName')?.errors?.['required']">Customer name is required</span>
+                    <span *ngIf="form.get('customerName')?.errors?.['maxlength']">Max 150 characters</span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="customerPhone" class="form-label">Phone Number *</label>
+                <input type="tel" class="form-control" id="customerPhone" formControlName="customerPhone"
+                    [class.is-invalid]="form.get('customerPhone')?.invalid && form.get('customerPhone')?.touched"
+                    placeholder="Enter phone number" />
+                <div class="invalid-feedback"
+                    *ngIf="form.get('customerPhone')?.invalid && form.get('customerPhone')?.touched">
+                    <span *ngIf="form.get('customerPhone')?.errors?.['required']">Phone number is required</span>
+                    <span *ngIf="form.get('customerPhone')?.errors?.['maxlength']">Max 20 characters</span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="foodItem" class="form-label">Food Item *</label>
+                <input type="text" class="form-control" id="foodItem" formControlName="foodItem"
+                    [class.is-invalid]="form.get('foodItem')?.invalid && form.get('foodItem')?.touched"
+                    placeholder="Enter food item" />
+                <div class="invalid-feedback" *ngIf="form.get('foodItem')?.invalid && form.get('foodItem')?.touched">
+                    <span *ngIf="form.get('foodItem')?.errors?.['required']">Food item is required</span>
+                    <span *ngIf="form.get('foodItem')?.errors?.['maxlength']">Max 200 characters</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="quantity" class="form-label">Quantity *</label>
+                    <input type="number" class="form-control" id="quantity" formControlName="quantity"
+                        [class.is-invalid]="form.get('quantity')?.invalid && form.get('quantity')?.touched" min="1" />
+                    <div class="invalid-feedback"
+                        *ngIf="form.get('quantity')?.invalid && form.get('quantity')?.touched">
+                        <span *ngIf="form.get('quantity')?.errors?.['required']">Quantity is required</span>
+                        <span *ngIf="form.get('quantity')?.errors?.['min']">Quantity must be at least 1</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="price" class="form-label">Price *</label>
+                    <input type="number" class="form-control" id="price" formControlName="price"
+                        [class.is-invalid]="form.get('price')?.invalid && form.get('price')?.touched" step="0.01"
+                        min="0.01" />
+                    <div class="invalid-feedback" *ngIf="form.get('price')?.invalid && form.get('price')?.touched">
+                        <span *ngIf="form.get('price')?.errors?.['required']">Price is required</span>
+                        <span *ngIf="form.get('price')?.errors?.['min']">Price must be greater than 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="deliveryAddress" class="form-label">Delivery Address *</label>
+                <textarea class="form-control" id="deliveryAddress" formControlName="deliveryAddress"
+                    [class.is-invalid]="form.get('deliveryAddress')?.invalid && form.get('deliveryAddress')?.touched"
+                    rows="3" placeholder="Enter delivery address"></textarea>
+                <div class="invalid-feedback"
+                    *ngIf="form.get('deliveryAddress')?.invalid && form.get('deliveryAddress')?.touched">
+                    <span *ngIf="form.get('deliveryAddress')?.errors?.['required']">Delivery address is required</span>
+                    <span *ngIf="form.get('deliveryAddress')?.errors?.['maxlength']">Max 500 characters</span>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary" [disabled]="loading || form.invalid">
+                    {{ orderId ? 'Update Order' : 'Create Order' }}
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="resetForm()" [disabled]="loading">
+                    Reset
+                </button>
+                <button type="button" class="btn btn-outline-secondary" (click)="onCancel()" [disabled]="loading">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

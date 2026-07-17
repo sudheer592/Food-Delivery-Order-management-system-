@@ -1,0 +1,80 @@
+<div class="container mt-4">
+  <h1 class="mb-4">Order Management Dashboard</h1>
+
+  <div *ngIf="loading" class="alert alert-info">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    Loading summary...
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+    <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadSummary()">Retry</button>
+  </div>
+
+  <div *ngIf="summary && !loading" class="row">
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total Orders</h5>
+          <p class="card-text display-6">{{ summary.totalOrders }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Placed</h5>
+          <p class="card-text display-6 text-primary">{{ summary.placedOrders }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Preparing</h5>
+          <p class="card-text display-6 text-warning">{{ summary.preparingOrders }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Out For Delivery</h5>
+          <p class="card-text display-6 text-info">{{ summary.outForDeliveryOrders }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Delivered</h5>
+          <p class="card-text display-6 text-success">{{ summary.deliveredOrders }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Cancelled</h5>
+          <p class="card-text display-6 text-danger">{{ summary.cancelledOrders }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total Revenue</h5>
+          <p class="card-text display-6 text-success">${{ summary.totalRevenue.toFixed(2) }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

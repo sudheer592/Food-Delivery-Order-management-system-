@@ -1,0 +1,57 @@
+.card {
+  border: none;
+  box-shadow: 0 24px 55px rgba(32, 40, 70, 0.08);
+  transition: transform 0.3s ease;
+  border-radius: 1.1rem;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-title {
+  font-size: 0.88rem;
+  color: #5f6c86;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.display-6 {
+  font-weight: 800;
+  margin: 0;
+  color: #151b29;
+}
+
+.summary-total .card-body {
+  background: linear-gradient(135deg, #0d6efd, #6610f2);
+  color: #fff;
+}
+
+.summary-total .card-title {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.summary-total .display-6 {
+  color: #fff;
+}
+
+.text-primary {
+  color: #0d6efd !important;
+}
+
+.text-warning {
+  color: #d97706 !important;
+}
+
+.text-info {
+  color: #0ea5e9 !important;
+}
+
+.text-success {
+  color: #16a34a !important;
+}
+
+.text-danger {
+  color: #dc2626 !important;
+}

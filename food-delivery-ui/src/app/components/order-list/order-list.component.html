@@ -1,0 +1,101 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Order List</h1>
+    <button class="btn btn-primary" (click)="toggleForm()">
+      {{ showForm ? 'Hide Form' : 'Create Order' }}
+    </button>
+  </div>
+
+  <!-- Order Form Section -->
+  <div *ngIf="showForm" class="card mb-4">
+    <div class="card-body">
+      <app-order-form [orderId]="editingId" (orderCreated)="onOrderCreated()" (orderUpdated)="onOrderUpdated()"
+        (cancelled)="toggleForm()"></app-order-form>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="alert alert-info">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    Loading orders...
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+    <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadOrders()">Retry</button>
+  </div>
+
+  <!-- Search and Filter Section -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="Search by customer name"
+            [(ngModel)]="searchCustomerName" />
+        </div>
+        <div class="col-md-4">
+          <select class="form-select" [(ngModel)]="filterStatus">
+            <option value="">All Statuses</option>
+            <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-success w-100" (click)="searchOrders()">Search</button>
+          <button class="btn btn-outline-secondary w-100 mt-2" (click)="clearSearch()">Clear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order List Table -->
+  <div class="table-responsive" *ngIf="!loading && orders.length > 0">
+    <table class="table table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Customer Name</th>
+          <th>Phone</th>
+          <th>Food Item</th>
+          <th>Qty</th>
+          <th>Price</th>
+          <th>Address</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.customerName }}</td>
+          <td>{{ order.customerPhone }}</td>
+          <td>{{ order.foodItem }}</td>
+          <td>{{ order.quantity }}</td>
+          <td>${{ order.price.toFixed(2) }}</td>
+          <td>{{ order.deliveryAddress }}</td>
+          <td>
+            <select class="form-select form-select-sm" [value]="order.status"
+              (change)="updateStatus(order, $any($event.target).value)" [ngClass]="{
+                'is-placed': order.status === 'Placed',
+                'is-preparing': order.status === 'Preparing',
+                'is-delivery': order.status === 'OutForDelivery',
+                'is-delivered': order.status === 'Delivered',
+                'is-cancelled': order.status === 'Cancelled'
+              }">
+              <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+            </select>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteOrder(order.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!loading && orders.length === 0" class="alert alert-info">
+    No orders found.
+  </div>
+</div>

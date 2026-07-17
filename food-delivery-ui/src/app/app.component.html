@@ -1,0 +1,22 @@
+<nav class="navbar navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Food Delivery Order Management System</span>
+        <ul class="nav nav-tabs" style="border-bottom: none;">
+            <li class="nav-item">
+                <a class="nav-link" [ngClass]="{ active: activeTab === 'dashboard' }" (click)="switchTab('dashboard')">
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [ngClass]="{ active: activeTab === 'orders' }" (click)="switchTab('orders')">
+                    Orders
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid content">
+    <app-dashboard *ngIf="activeTab === 'dashboard'"></app-dashboard>
+    <app-order-list *ngIf="activeTab === 'orders'"></app-order-list>
+</div>

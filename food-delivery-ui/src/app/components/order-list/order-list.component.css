@@ -1,0 +1,61 @@
+.is-placed {
+  background-color: #e7f4ff;
+}
+
+.is-preparing {
+  background-color: #fff7e6;
+}
+
+.is-delivery {
+  background-color: #e7f3ff;
+}
+
+.is-delivered {
+  background-color: #ebf7ee;
+}
+
+.is-cancelled {
+  background-color: #ffe7e7;
+}
+
+table {
+  font-size: 0.92rem;
+}
+
+.small-form {
+  max-width: 320px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.status-select {
+  border-radius: 0.85rem;
+  padding: 6px 10px;
+  font-size: 0.88rem;
+}
+
+.table-responsive {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.order-table th,
+.order-table td {
+  padding: 1rem 0.85rem;
+}
+
+.order-table tbody tr {
+  transition: background 0.25s ease;
+}
+
+.order-table tbody tr:hover {
+  background: rgba(13, 110, 253, 0.04);
+}
+
+.card-body {
+  gap: 1rem;
+}
